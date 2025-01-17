@@ -33,3 +33,22 @@ pipeline{
         }
     }
 }
+
+
+
+
+FROM redis:latest CMD ["redis-server"]
+
+
+
+version: '3.8'
+services:
+  tom:
+    image: tomee
+    ports:
+      - "9090:8080"
+  ngin:
+    image: nginx:latest
+    ports:
+      - "7070:80"
+
