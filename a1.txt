@@ -1,0 +1,35 @@
+pipeline{
+    agent any
+    environment{
+        PATH="${PATH};C:\\Program Files\\Git\\bin;C:\\Program Files\\Git\\cmd"
+    }
+    tools{
+        maven 'MAVEN_HOME'
+        git 'GIT_HOME'
+    }
+    stages{
+        stage('git repo & clean'){
+            steps
+            {
+                //bat "rmdir /s /q newve"
+                bat "git clone https://github.com/Aakanksha267/newve.git"
+                bat "mvn clean -f newve"
+            }
+        }
+        stage('install'){
+            steps{
+                bat "mvn install -f newve"
+            }
+        }
+        stage('test'){
+            steps{
+                bat "mvn test -f newve"
+            }
+        }
+        stage('package'){
+            steps{
+                bat "mvn package -f newve"
+            }
+        }
+    }
+}
